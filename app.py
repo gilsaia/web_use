@@ -8,6 +8,17 @@ app.config.from_object(config)
 def hello_world():
     return render_template("index.html")
 
+@app.route('/interact')
+def interact():
+    return render_template("interactions.html")
+
+@app.route('/intro')
+def show_info():
+    return render_template("introduction.html")
+
+@app.route('/papers')
+def show_pps():
+    return render_template("papers.html")
 
 if __name__ == '__main__':
     app.run()

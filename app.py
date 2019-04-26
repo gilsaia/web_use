@@ -8,9 +8,9 @@ app.config.from_object(config)
 def hello_world():
     return render_template("index.html")
 
-@app.route('/interact')
-def interact():
-    return render_template("interactions.html")
+@app.route('/contact')
+def contact():
+    return render_template("contactus.html")
 
 @app.route('/intro')
 def show_info():
@@ -19,6 +19,19 @@ def show_info():
 @app.route('/papers')
 def show_pps():
     return render_template("papers.html")
+
+@app.route('/A1')
+def area1():
+    return render_template("#")
+@app.route('/A2')
+def area2():
+    return render_template("#")
+@app.route('/A3')
+def area3():
+    return render_template("#")
+@app.route('/A4')
+def area4():
+    return render_template("#")
 
 if __name__ == '__main__':
     app.run()

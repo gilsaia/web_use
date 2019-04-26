@@ -11,6 +11,7 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <!-- 导航栏 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,26 +21,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ url_for('hello_world') }}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('show_info') }}">Lab introduction</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{{ url_for('show_pps') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Publications
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Research_Area1</a>
-              <a class="dropdown-item" href="#">2</a>
-              <a class="dropdown-item" href="#">3</a>
-              <a class="dropdown-item" href="#">4</a>
+              <a class="dropdown-item" href="{{ url_for('show_pps') }}">Research_Area1</a>
+              <a class="dropdown-item" href="{{ url_for('show_pps') }}">2</a>
+              <a class="dropdown-item" href="{{ url_for('show_pps') }}">3</a>
+              <a class="dropdown-item" href="{{ url_for('show_pps') }}">4</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('interact')}}">Have a try!</a>
+            <a class="nav-link" href="{{ url_for('contact')}}">Contact Us!</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -48,6 +49,9 @@
         </form>
       </div>
     </nav>
-    {% block body %}{% endblock %}
+
+    {% block body %}
+
+    {% endblock %}
 </body>
 </html>

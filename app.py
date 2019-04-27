@@ -6,32 +6,31 @@ app.config.from_object(config)
 
 @app.route('/')
 def hello_world():
-    return render_template("index.html")
+    return render_template("base.html")
 
 @app.route('/contact')
 def contact():
-    return render_template("contactus.html")
+    return render_template("Bcon.html")
 
 @app.route('/intro')
 def show_info():
-    return render_template("introduction.html")
+    return render_template("Bintro.html")
 
-@app.route('/papers')
-def show_pps():
-    return render_template("papers.html")
+@app.route('/researchA')
+def show_pp():
+    return render_template("Bpp.html")
 
-@app.route('/A1')
-def area1():
-    return render_template("#")
-@app.route('/A2')
-def area2():
-    return render_template("#")
-@app.route('/A3')
-def area3():
-    return render_template("#")
-@app.route('/A4')
-def area4():
-    return render_template("#")
+@app.route('/researchA2')
+def show_pp2():
+    return render_template("Bpp2.html")
+
+@app.route('/researchA3')
+def show_pp3():
+    return render_template("Bpp3.html")
+
+@app.route('/researchA4')
+def show_pp4():
+    return render_template("Bpp4.html")
 
 if __name__ == '__main__':
     app.run()

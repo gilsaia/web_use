@@ -1,4 +1,4 @@
-from flask import Flask, render_template,
+from flask import Flask, render_template, g, redirect, url_for
 import config
 
 app = Flask(__name__)
@@ -42,7 +42,7 @@ def show_pp4():
 
 @app.route('/ch')
 def Chello_world():
-    return render_template("cVersion/base.html")
+    return render_template("cVersion/hello_world.html")
 
 
 @app.route('/ch/contact')
@@ -75,6 +75,5 @@ def Cshow_pp4():
     return render_template("cVersion/Bpp4.html")
 
 
-@app,context
 if __name__ == '__main__':
     app.run()

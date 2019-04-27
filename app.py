@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,
 import config
 
 app = Flask(__name__)
@@ -75,5 +75,6 @@ def Cshow_pp4():
     return render_template("cVersion/Bpp4.html")
 
 
+@app,context
 if __name__ == '__main__':
     app.run()

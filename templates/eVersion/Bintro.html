@@ -1,5 +1,12 @@
 {% extends "eVersion/base.html" %}
 {% block title %}Introduction{% endblock %}
+{% block head %}
+    <script>
+        $(document).ready(function () {
+            $("#Lab_introduction").addClass("active");
+        });
+    </script>
+{% endblock %}
 {% block body %}
     <br/>
     <h1 class="bd-title" id="content">南开大学媒体计算实验室</h1>

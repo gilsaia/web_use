@@ -1,5 +1,12 @@
 {% extends "eVersion/base.html" %}
 {% block title %}Welcome!{% endblock %}
+{% block head %}
+<script>
+     $(document).ready(function () {
+         $("#Home").addClass("active");
+     });
+</script>
+{% endblock %}
 {% block body %}
     <!--slides-->
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

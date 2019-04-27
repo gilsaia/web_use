@@ -23,13 +23,13 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item" id="Home">
             <a class="nav-link" href="{{ url_for('hello_world') }}">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="Lab_introduction">
             <a class="nav-link" href="{{ url_for('show_info') }}">Lab introduction</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" id="Publications">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Publications
             </a>
@@ -42,18 +42,18 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="Contact_Us">
             <a class="nav-link" href="{{ url_for('contact')}}">Contact Us!</a>
           </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Language
-            </a>
+                Language
+                </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ url_for('Chello_world') }}">Chinese</a>
-              <a class="dropdown-item" href="{{ url_for('hello_world') }}">English</a>
+                    <a class="dropdown-item" href="{{ url_for('Chello_world') }}">Chinese</a>
+                    <a class="dropdown-item" href="{{ url_for('hello_world') }}">English</a>
                 </div>
-          </li>
+           </li>
         </ul>
 
         <form class="form-inline my-2 my-lg-0">

@@ -5,9 +5,9 @@ app = Flask(__name__)
 app.config.from_object(config)
 
 
-@app.route('/')
+@app.route('/',methods=['POST', 'GET'])
 def hello_world():
-    return render_template("eVersion/hello_world.html")
+    return render_template("eVersion/npr.html")
 
 
 @app.route('/contact')

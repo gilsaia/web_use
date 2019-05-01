@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.config.from_object(config)
 
 
-@app.route('/',methods=['POST', 'GET'])
+@app.route('/', methods=['POST', 'GET'])
 def hello_world():
     return render_template("eVersion/npr.html")
 

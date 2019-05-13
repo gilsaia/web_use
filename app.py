@@ -7,7 +7,7 @@ app.config.from_object(config)
 
 @app.route('/', methods=['POST', 'GET'])
 def hello_world():
-    return render_template("eVersion/npr.html")
+    return render_template("formversion/index.html")
 
 
 @app.route('/contact')

@@ -15,7 +15,6 @@
         <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ url_for('static',filename='css/formmain.css')}}">
         <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
-		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body>
 		<div class="page-wrap">
@@ -24,8 +23,9 @@
 				<nav id="nav">
 					<ul>
 						<li><a href="{{ url_for('hello_world') }}" class="active"><span class="icon fa-home"></span></a></li>
-						<li><a href="gallery.html"><span class="icon fa-camera-retro"></span></a></li>
-						<li><a href="generic.html"><span class="icon fa-file-text-o"></span></a></li>
+						<li><a href="{{ url_for('gallery') }}"><span class="icon fa-camera-retro"></span></a></li>
+						<li><a href="{{ url_for('generic') }}"><span class="icon fa-file-text-o"></span></a></li>
+                        <li><a href="{{ url_for('npr') }}"><span class="icon fa-eyedropper"></span></a> </li>
 					</ul>
 				</nav>
 
@@ -83,11 +83,13 @@
 		</div>
 
 		<!-- Scripts -->
-        <script> src="{{ url_for('static',filename='js/form/jquery.min.js') }}"</script>
-        <script> src="{{ url_for('static',filename='js/form/jquery.poptrox.min.js') }}"</script>
-        <script> src="{{ url_for('static',filename='js/form/jquery.scrolly.min.js') }}"</script>
-        <script> src="{{ url_for('static',filename='js/form/skel.min.js') }}"</script>
-        <script> src="{{ url_for('static',filename='js/form/util.js') }}"</script>
-        <script> src="{{ url_for('static',filename='js/form/main.js') }}"</script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/form/jquery.min.js') }}"> </script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/form/jquery.poptrox.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/form/jquery.scrolly.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/form/skel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/form/util.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/form/main.js') }}"></script>
+    {% block script %}
+    {% endblock %}
 	</body>
 </html>

@@ -10,6 +10,21 @@ def hello_world():
     return render_template("formversion/index.html")
 
 
+@app.route('/gallery')
+def gallery():
+    return render_template("formversion/gallery.html")
+
+
+@app.route('/generic')
+def generic():
+    return render_template("formversion/generic.html")
+
+
+@app.route('/npr')
+def npr():
+    return render_template("formversion/npr.html")
+
+
 @app.route('/contact')
 def contact():
     return render_template("eVersion/Bcon.html")

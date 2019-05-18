@@ -55,40 +55,5 @@ def show_pp4():
     return render_template("eVersion/Bpp4.html")
 
 
-@app.route('/ch')
-def Chello_world():
-    return render_template("cVersion/hello_world.html")
-
-
-@app.route('/ch/contact')
-def Ccontact():
-    return render_template("cVersion/Bcon.html")
-
-
-@app.route('/ch/intro')
-def Cshow_info():
-    return render_template("cVersion/Bintro.html")
-
-
-@app.route('/ch/researchA')
-def Cshow_pp():
-    return render_template("cVersion/Bpp.html")
-
-
-@app.route('/ch/researchA2')
-def Cshow_pp2():
-    return render_template("cVersion/Bpp2.html")
-
-
-@app.route('/ch/researchA3')
-def Cshow_pp3():
-    return render_template("cVersion/Bpp3.html")
-
-
-@app.route('/ch/researchA4')
-def Cshow_pp4():
-    return render_template("cVersion/Bpp4.html")
-
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

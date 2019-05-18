@@ -1,10 +1,17 @@
 {% extends 'formversion/base.html' %}
+{% block script %}
+    <script>
+         $(document).ready(function () {
+             $("#home").addClass("active");
+         });
+    </script>
+{% endblock %}
 {% block main %}
 					<!-- Banner -->
 						<section id="banner">
 							<div class="inner">
-								<h1>Hey, I'm Snapshot</h1>
-								<p>A fully responsive gallery template by <a href="https://templated.co">TEMPLATED</a></p>
+								<h1>Hey, There's Media Computing Lab, College of Computer Science, Nankai University</h1>
+								<p>南开大学媒体计算实验室</a></p>
 								<ul class="actions">
 									<li><a href="#galleries" class="button alt scrolly big">Continue</a></li>
 								</ul>

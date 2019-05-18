@@ -1,4 +1,11 @@
 {% extends 'formversion/base.html' %}
+{% block script %}
+    <script>
+         $(document).ready(function () {
+             $("#npr").addClass("active");
+         });
+    </script>
+{% endblock %}
 {% block main %}
     <div class="container">
     <h1 style="text-align: center; font-family: Tangerine">Non-Photorealistic Rendering</h1>
@@ -29,7 +36,7 @@
         </div>
     </div>
 {% endblock %}
-{% block script %}
+{% block endscript %}
 <script>
 <!--zoom in show-->
 $("img").click(function() {

@@ -1,0 +1,26 @@
+{% extends "cVersion/base.html" %}
+{% block title %}Introduction{% endblock %}
+{% block head %}
+    <script>
+        $(document).ready(function () {
+            $("#Lab_introduction").addClass("active");
+        });
+    </script>
+{% endblock %}
+{% block body %}
+    <br/>
+    <h1 class="bd-title" id="content">南开大学媒体计算实验室</h1>
+    <h2><span class="badge badge-secondary">Media Computing Lab, College of Computer Science, Nankai University</span></h2>
+
+    <p class="bd-lead">视觉是人类获取信息的主要渠道。图像、视频、几何模型等可视媒体信息，在经济、军事、教育等领域发挥着越来越重要的作用，已经成为同能源与材料同等重要的战略资源。然而，可视信息本身存在着数据量大、无结构化等特点，使得分析较为困难。对可视信息进行有效的表达及加工，并从中提取有用的知识是目前计算机视觉和计算机图形学的研究重点。我们重点研究针对可视媒体信息的智能计算方法，包括：图像视频的场景理解、内容编辑、显著性分析、物体检测， 以及几何模型的重建与分析等。更多关于我们工作的信息，请参考论著页面。</p>
+    <br/>
+    <br/>
+    <br/>
+    <a href="{{ url_for('show_pp') }}">click to jump to R.A.1</a>
+    <br/>
+    <a href="{{ url_for('show_pp2') }}">click to jump to R.A.2</a>
+    <br/>
+    <a href="{{ url_for('show_pp3') }}">click to jump to R.A.3</a>
+    <br/>
+    <a href="{{ url_for('show_pp4') }}">click to jump to R.A.4</a>
+{% endblock %}

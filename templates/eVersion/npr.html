@@ -1,0 +1,127 @@
+{% extends "eVersion/base.html" %}
+{% block head %}
+<link rel="shortcut icon" href="http://static.kaiz.xyz/profile/frofile-web-256.png">
+<meta charset="utf-8">
+<meta charset='utf-8' name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+{% endblock %}
+{% block title %}
+Non-Photorealistic Rendering
+{% endblock %}
+{% block body %}
+
+<div class="container">
+<h1 style="text-align: center; font-family: Tangerine">Non-Photorealistic Rendering</h1>
+<form class="npr-form form-inline">
+    <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile" class="form-control">
+    </div>
+  <button type="submit" class="btn btn-default" id="upload_btn">Upload</button>
+</form>
+    <div id="output" class="img-block">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <h4>Raw Image</h4>
+            </div>
+            <div class="col-md-6 text-center">
+                <h4>Stylized Image</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <img id="input_img" class="img-thumbnail m-auto center-block" src="{{ url_for('static',filename='images/DSS.jpg') }}">
+            </div>
+            <div class="col-md-6">
+                <img id="npr_img" class="img-thumbnail m-auto center-block" src="{{ url_for('static',filename='images/BING1.png') }}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+<!--zoom in show-->
+$("img").click(function() {
+  $("#zoomin").attr("src", $(this).attr("src"));
+  $("#zoomin").show(200);
+})
+$("#zoomin").click(function() {
+  $(this).hide("slow");
+})
+function isimg(fn) {
+  fn = fn.toLowerCase();
+  if (fn.indexOf('.jpg')>-1 || fn.indexOf('.jpeg')>-1 ||
+  fn.indexOf('.bmp')>-1 || fn.indexOf('.png')>-1) {
+    return 1;
+  } else {
+    $("#output_str").css("color", "red");
+    $("#output_str").text("Please choose an IMAGE file.");
+    return 0;
+  }
+}
+function checksize(f) {
+  maxImgSiz = 4
+  if (f.size/1024/1024 > maxImgSiz) {
+    $("#output_str").css("color", "red");
+    $("#output_str").text("Image size should be less than "+maxImgSiz+" M.");
+    return 0;
+  } else {
+    return 1;
+  }
+}
+$("#file").bind('change', function(){
+  if (checksize(document.getElementById("file").files[0]) &&
+     isimg($("#file").val())) {
+    $("#output_str").css("color", "black");
+    $("#output_str").text("Image "+$("#file").val()+" to be uploaded.");
+  } 
+})
+$("#upload_btn").click(function(){
+  var fileObj = document.getElementById("file").files[0];
+  if (!isimg($("#file").val())) {
+    return;
+  }
+  if (!checksize(fileObj)) {
+    return;
+  }
+  if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+    $("#output_str").css("color", "red");
+    $('#output_str').text("Cannot read image file!")
+    return;
+  }
+  $("#output_str").css("color", "green");
+  $('#output_str').text("Please wait...!")
+  var formFile = new FormData();
+  formFile.append("action", "UploadVMKImagePath");
+  formFile.append("file", fileObj);
+  var data = formFile;
+  $("#output_str").css("color", "green");
+  $('#output_str').text("Posting data, please wait...")
+  $.ajax({
+    url: "http://kaiz.xyz/npr_api",
+    type: "POST",
+    dataType: "json",
+    cache: false,
+    processData: false,
+    contentType: false,
+    data: data,
+    success: function (data) {
+      $("#input_img").attr("src", data['input_img'])
+      $("#npr_img").attr("src", data['npr_img'])
+      //$("#sketched_color").attr("src", data['sketched_color'])
+      //$("#sketched_gray").attr("src", data['sketched_gray'])
+      //$("#enhance").attr("src", data['enhance'])
+      //$("#edge_preserve").attr("src", data['edge_preserve'])
+      $("#output_str").css("color", "green");
+      $('#output_str').text("Done!")
+    },
+    error: function (request, errormsg) {
+      $("#output_str").css("color", "red");
+      $("#output_str").text('error!');
+    }
+  })
+  
+})
+</script>
+<script src = "{{ url_for('static',filename='js/google-analytics.js') }}"></script>
+{% endblock %}

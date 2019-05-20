@@ -1,0 +1,21 @@
+{% extends 'eVersion/base.html' %}
+{% block basehead %}
+    <script>
+        $(document).ready(function () {
+            $("#Home-txt").html("主页");
+            $("#Home-txt").attr('href','{{ url_for('Chello_world') }}');
+            $("#Lab-txt").text("实验室介绍");
+            $("#Lab-txt").attr('href','{{ url_for('Cshow_info') }}');
+            $(".Pub-txt").html("论文");
+            $("#Pub1").attr('href','{{ url_for('Cshow_pp') }}');
+            $("#Pub2").attr('href','{{ url_for('Cshow_pp2') }}');
+            $("#Pub3").attr('href','{{ url_for('Cshow_pp3') }}');
+            $("#Pub4").attr('href','{{ url_for('Cshow_pp4') }}');
+            $("#Contact-txt").text("联系我们！");
+            $("#Contact-txt").attr('href','{{ url_for('Ccontact') }}');
+            $(".lan-txt").html("语言");
+            $("#zh-txt").text("中文");
+            $("#en-txt").text("英文");
+    });
+    </script>
+{% endblock %}

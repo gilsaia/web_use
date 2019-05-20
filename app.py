@@ -33,7 +33,8 @@ def generic():
 def npr():
     if request.method == "POST":
         # 接收图片
-        os.remove('static/files/img1/pic.png')
+        if(os.path.exists('static/files/img1/pic.png')):
+            os.remove('static/files/img1/pic.png')
         photo.save(request.files['file'], 'img1', 'pic.png')  # 保存图片
 
         # 发送图片

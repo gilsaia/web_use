@@ -1,4 +1,5 @@
 from flask import Flask, render_template, g, redirect, url_for,request,jsonify
+import random,string,stringprep
 from flask_uploads import configure_uploads,UploadSet
 import config
 import os,base64
@@ -35,20 +36,17 @@ def npr():
         return render_template("formversion/npr.html")
     else:
         # 接收图片
-        if(os.path.exists('static/files/img1/pic.png')):
-            os.remove('static/files/img1/pic.png')
-        photo.save(request.files['file'], 'img1', 'pic.png')  # 保存图片
-
-        # 发送图片
-        img = open("static/files/img1/pic.png", 'rb')  # 读取图片文件
-        data = base64.b64encode(img.read()).decode()  # 进行base64编码
-        html = '''<img src="data:image/png;base64,{}" style="width:100%;height:100%;"/>'''  # html代码
-        htmlstr = html.format(data)  # 添加数据
+        if(os.path.exists('static/files/img1/pic1.png')):
+            os.remove('static/files/img1/pic1.png')
+        random_num = str(random.randint(10, 10000000))
+        random_num=random_num+".png"
+        photo.save(request.files['file'], 'img1', random_num)  # 保存图片
+        # print(request.data['hours']);
         return jsonify({
             'status':'0',
             'info':'new image',
-            'npr_img':"static/files/img1/pic.png",
-            'input_img':"static/files/img1/pic.png"
+            'npr_img':"static/files/img1/"+random_num,
+            'input_img':"static/files/img1/"+random_num
         })
     # return render_template("formversion/npr.html")
 

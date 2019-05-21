@@ -61,9 +61,15 @@
               }
               $("#output_str").css("color", "green");
               $('#output_str').text("Please wait...!")
+            {#var myDate=new Date();#}
+            {#  data['hours']=myDate.getHours();#}
+            {#  data['minutes']=myDate.getMinutes();#}
+            {#  data['second']=myDate.getSeconds();#}
+            {#  console.log(data['hours'])#}
 		     $.ajax({
                 url:"/npr",
                 type:"POST",
+                 cache: true,
                 data:formFile,
                 processData:false,
                 contentType:false,

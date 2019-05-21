@@ -70,6 +70,8 @@
                 success: function (data) {
                     document.getElementById('rawimage').innerHTML=data;
                     document.getElementById('stylizedimage').innerHTML=data;
+                    $("#input_img").attr("src",data['input_img'])
+                    $("#npr_img").attr("src",data['npr_img'])
                 }
              })
         })

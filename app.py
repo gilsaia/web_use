@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g, redirect, url_for,request
+from flask import Flask, render_template, g, redirect, url_for,request,jsonify
 from flask_uploads import configure_uploads,UploadSet
 import config
 import os,base64
@@ -31,7 +31,9 @@ def generic():
 
 @app.route('/npr', methods=['POST', 'GET'])
 def npr():
-    if request.method == "POST":
+    if request.method == "GET":
+        return render_template("formversion/npr.html")
+    else:
         # 接收图片
         if(os.path.exists('static/files/img1/pic.png')):
             os.remove('static/files/img1/pic.png')
@@ -42,8 +44,13 @@ def npr():
         data = base64.b64encode(img.read()).decode()  # 进行base64编码
         html = '''<img src="data:image/png;base64,{}" style="width:100%;height:100%;"/>'''  # html代码
         htmlstr = html.format(data)  # 添加数据
-        return htmlstr
-    return render_template("formversion/npr.html")
+        return jsonify({
+            'status':'0',
+            'info':'new image',
+            'npr_img':"static/files/img1/pic.png",
+            'input_img':"static/files/img1/pic.png"
+        })
+    # return render_template("formversion/npr.html")
 
 
 @app.route('/npr_api',methods=['POST'])

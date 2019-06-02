@@ -50,60 +50,71 @@
         return 0;
       }
     }
+    function isimg(fn) {
+        fn=fn.toLowerCase();
+      if (fn.indexOf('.jpg')>-1 || fn.indexOf('.jpeg')>-1 ||
+      fn.indexOf('.bmp')>-1 || fn.indexOf('.png')>-1) {
+        return 1;
+      } else {
+        $("#output_str").css("color", "red");
+        $("#output_str").text("Please choose an IMAGE file.");
+        return 0;
+      }
+    }
+    function checksize(f) {
+      maxImgSiz = 4
+      if (f.size/1024/1024 > maxImgSiz) {
+        $("#output_str").css("color", "red");
+        $("#output_str").text("Image size should be less than "+maxImgSiz+" M.");
+        return 0;
+      } else {
+        return 1;
+      }
+    }
        function uploadimage() {
-
            var fileObj = document.getElementById("file").files[0];
-           $("#gallery").addClass("active");
-               $("#output_str").css("color", "green");
-               $('#output_str').text("Please wait...!")
-               var formFile = new FormData();
-               formFile.append("action", "UploadVMKImagePath");
-               formFile.append("image", fileObj);
-               $("#output_str").css("color", "green");
-               $('#output_str').text("Posting data, please wait...")
-               $.ajax({
-                   url: "/npr_api",
-                   type: "POST",
-                   dataType: "json",
-                   cache: false,
-                   processData: false,
-                   contentType: false,
-                   data: formFile,
-                   success: function (data) {
+             if (!isimg($("#file").val())) {
+            return;
+          }
+               if (!checksize(fileObj)) {
+            return;
+          }
+          if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+            $("#output_str").css("color", "red");
+            $('#output_str').text("Cannot read image file!")
+            return;
+          }
+           $("#output_str").css("color", "green");
+           $('#output_str').text("Please wait...!")
+           var formFile = new FormData();
+           formFile.append("action", "UploadVMKImagePath");
+           formFile.append("image", fileObj);
+           $("#output_str").css("color", "green");
+           $('#output_str').text("Posting data, please wait...")
+           $.ajax({
+               url: "/npr_api",
+               type: "POST",
+               dataType: "json",
+               cache: false,
+               processData: false,
+               contentType: false,
+               data: formFile,
+               success: function (data) {
 
-                       $("#input_img").attr("src", data['input_img'])
-                       $("#npr_img").attr("src", data['npr_img'])
-                       //$("#sketched_color").attr("src", data['sketched_color'])
-                       //$("#sketched_gray").attr("src", data['sketched_gray'])
-                       //$("#enhance").attr("src", data['enhance'])
-                       //$("#edge_preserve").attr("src", data['edge_preserve'])
-                       $("#output_str").css("color", "green");
-                       $('#output_str').text(data['input_img'])
-                   },
-                   error: function (request, errormsg) {
-                       $("#output_str").css("color", "red");
-                       $("#output_str").text('error!');
-                   }
-                   {#var myDate=new Date();#}
-                   {#  data['hours']=myDate.getHours();#}
-                   {#  data['minutes']=myDate.getMinutes();#}
-                   {#  data['second']=myDate.getSeconds();#}
-                   {#  console.log(data['hours'])#}
-                   {# $.ajax({#}
-                   {#    url:"/npr",#}
-                   {#    type:"POST",#}
-                   {#     cache: true,#}
-                   {#    data:formFile,#}
-                   {#    processData:false,#}
-                   {#    contentType:false,#}
-                   {#    success: function (data) {#}
-                   {#        document.getElementById('rawimage').innerHTML=data;#}
-                   {#        document.getElementById('stylizedimage').innerHTML=data;#}
-                   {#        $("#input_img").attr("src",data['input_img'])#}
-                   {#        $("#npr_img").attr("src",data['npr_img'])#}
-                   {#    }#}
-                   {# })#}
-                })
+                   $("#input_img").attr("src", data['input_img'])
+                   $("#npr_img").attr("src", data['npr_img'])
+                   //$("#sketched_color").attr("src", data['sketched_color'])
+                   //$("#sketched_gray").attr("src", data['sketched_gray'])
+                   //$("#enhance").attr("src", data['enhance'])
+                   //$("#edge_preserve").attr("src", data['edge_preserve'])
+                   $("#output_str").css("color", "green");
+                   $('#output_str').text('Done!');
+               },
+               error: function (request, errormsg) {
+                   $("#output_str").css("color", "red");
+                   $("#output_str").text('error!');
+               }
+            })
        }
     </script>
 <script type="text/javascript">
@@ -114,28 +125,7 @@ $("img").click(function() {
 })
 $("#zoomin").click(function() {
   $(this).hide("slow");
-})
-function isimg(fn) {
-    fn=fn.toLowerCase();
-  if (fn.indexOf('.jpg')>-1 || fn.indexOf('.jpeg')>-1 ||
-  fn.indexOf('.bmp')>-1 || fn.indexOf('.png')>-1) {
-    return 1;
-  } else {
-    $("#output_str").css("color", "red");
-    $("#output_str").text("Please choose an IMAGE file.");
-    return 0;
-  }
-}
-function checksize(f) {
-  maxImgSiz = 4
-  if (f.size/1024/1024 > maxImgSiz) {
-    $("#output_str").css("color", "red");
-    $("#output_str").text("Image size should be less than "+maxImgSiz+" M.");
-    return 0;
-  } else {
-    return 1;
-  }
-}
+})}
 $("#file").bind('change', function(){
   if (checksize(document.getElementById("file").files[0]) &&
      isimg($("#file").val())) {
@@ -143,53 +133,7 @@ $("#file").bind('change', function(){
     $("#output_str").text("Image "+$("#file").val()+" to be uploaded.");
   }
 })
-{#$("#upload_btn").click(function(){#}
-{#  var fileObj = document.getElementById("file").files[0];#}
-{#  console.log("1");#}
-{#  if (!isimg($("#file").val())) {#}
-{#    return;#}
-{#  }#}
-{#  if (!checksize(fileObj)) {#}
-{#    return;#}
-{#  }#}
-{#  if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {#}
-{#    $("#output_str").css("color", "red");#}
-{#    $('#output_str').text("Cannot read image file!")#}
-{#    return;#}
-{#  }#}
-{#  $("#output_str").css("color", "green");#}
-{#  $('#output_str').text("Please wait...!")#}
-{#  var formFile = new FormData();#}
-{#  formFile.append("action", "UploadVMKImagePath");#}
-{#  formFile.append("file", fileObj);#}
-{#  var form_data = new FormData($('#form1')[0]);#}
-{#  $("#output_str").css("color", "green");#}
-{#  $('#output_str').text("Posting data, please wait...")#}
-{#  $.ajax({#}
-{#    url: "/npr_api",#}
-{#    type: "POST",#}
-{#    dataType: "json",#}
-{#    cache: false,#}
-{#    processData: false,#}
-{#    contentType: false,#}
-{#    data: form_data,#}
-{#    success: function (data) {#}
-{#      $("#input_img").attr("src", data['input_img'])#}
-{#      $("#npr_img").attr("src", data['npr_img'])#}
-{#      //$("#sketched_color").attr("src", data['sketched_color'])#}
-{#      //$("#sketched_gray").attr("src", data['sketched_gray'])#}
-{#      //$("#enhance").attr("src", data['enhance'])#}
-{#      //$("#edge_preserve").attr("src", data['edge_preserve'])#}
-{#      $("#output_str").css("color", "green");#}
-{#      $('#output_str').text("Done!")#}
-{#    },#}
-{#    error: function (request, errormsg) {#}
-{#      $("#output_str").css("color", "red");#}
-{#      $("#output_str").text('error!');#}
-{#    }#}
-{#  })#}
-
-})
+}
 </script>
 <script src = "{{ url_for('static',filename='js/google-analytics.js') }}"></script>
 {% endblock %}

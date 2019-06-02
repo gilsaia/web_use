@@ -1,18 +1,15 @@
-from flask import Flask, render_template, g, redirect, url_for,request,jsonify
-import random,string,stringprep
-from flask_uploads import configure_uploads,UploadSet
+from flask import Flask, render_template, g, redirect, url_for, request, jsonify
+from flask_uploads import configure_uploads, UploadSet
 import config
-import os,base64
+from os.path import abspath, dirname, join, isdir, isfile
+import os.path as osp
+
 
 app = Flask(__name__)
 app.config.from_object(config)
-
-# 配置上传文件存放路径
-base = os.path.dirname(os.path.abspath(__file__))
-base = os.path.join(base, 'upload')
-app.config['UPLOADS_DEFAULT_DEST'] = base
-photo = UploadSet()
-configure_uploads(app, photo)
+app.config['homepage_dir'] = abspath(dirname(__file__))
+app.config['upload'] = join(app.config['homepage_dir'], 'static/upload')
+upload_dir = app.config['upload']
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -32,29 +29,23 @@ def generic():
 
 @app.route('/npr', methods=['POST', 'GET'])
 def npr():
-    if request.method == "GET":
-        return render_template("npr.html")
-    else:
-        # 接收图片
-        if(os.path.exists('upload/images/pic1.png')):
-            os.remove('upload/images/pic1.png')
-        random_num = str(random.randint(10, 10000000))
-        random_num=random_num+".png"
-        photo.save(request.files['file'], 'img1', random_num)  # 保存图片
-        # print(request.data['hours']);
-        return jsonify({
-            'status': '0',
-            'info': 'new image',
-            'npr_img': 'upload/images/'+random_num,
-            'input_img': 'upload/images/'+random_num
-        })
-    # return render_template("formversion/npr.html")
+    return render_template("npr.html")
 
 
-@app.route('/npr_api',methods=['POST'])
+@app.route('/npr_api', methods=['POST'], strict_slashes=False)
 def npr_api():
-    request.files
-    return render_template("gallery.html")
+    f = request.files['image']
+    rsz_fn = osp.join(upload_dir, f.filename)
+    npr_imfn = osp.join(upload_dir, f.filename)
+    f.save(osp.join(upload_dir, f.filename))
+    npr_imfn = osp.relpath(npr_imfn, app.config['homepage_dir'])
+    rsz_fn = osp.relpath(rsz_fn, app.config['homepage_dir'])
+    return jsonify({
+        'status': '0',
+        'info': 'return cached data',
+        'npr_img': npr_imfn,
+        'input_img': rsz_fn
+    })
 
 
 if __name__ == '__main__':

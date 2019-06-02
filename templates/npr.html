@@ -14,14 +14,15 @@
             <label for="exampleInputFile">File input</label>
             <input id="file" type="file" id="exampleInputFile" class="form-control" name="file">
         </div>
-      <button type="button" class="btn btn-default" id="upload_btn">Upload</button>
+      <button type="button" class="btn btn-default" id="upload_btn" onclick="uploadimage()">Upload</button>
+        <p id="output_str">Choose an image file then prees "Upload".</p>
     </form>
         <div id="output" class="img-block">
             <div class="row">
-                <div class="col-md-6 text-center" id="rawimage">
+                <div class="col-md-6 text-center">
                     <h4>Raw Image</h4>
                 </div>
-                <div class="col-md-6 text-center" id="stylizedimage">
+                <div class="col-md-6 text-center">
                     <h4>Stylized Image</h4>
                 </div>
             </div>
@@ -49,38 +50,61 @@
         return 0;
       }
     }
-        $('#upload_btn').click(function () {
-              if (!isimg($("#file").val())) {
-                return;
-              }
-            var formFile = new FormData($('#form1')[0]);
-            if (typeof (formFile) == "undefined" || formFile.size <= 0) {
-                $("#output_str").css("color", "red");
-                $('#output_str').text("Cannot read image file!")
-                return;
-              }
-              $("#output_str").css("color", "green");
-              $('#output_str').text("Please wait...!")
-            {#var myDate=new Date();#}
-            {#  data['hours']=myDate.getHours();#}
-            {#  data['minutes']=myDate.getMinutes();#}
-            {#  data['second']=myDate.getSeconds();#}
-            {#  console.log(data['hours'])#}
-		     $.ajax({
-                url:"/npr",
-                type:"POST",
-                 cache: true,
-                data:formFile,
-                processData:false,
-                contentType:false,
-                success: function (data) {
-                    document.getElementById('rawimage').innerHTML=data;
-                    document.getElementById('stylizedimage').innerHTML=data;
-                    $("#input_img").attr("src",data['input_img'])
-                    $("#npr_img").attr("src",data['npr_img'])
-                }
-             })
-        })
+       function uploadimage() {
+
+           var fileObj = document.getElementById("file").files[0];
+           $("#gallery").addClass("active");
+               $("#output_str").css("color", "green");
+               $('#output_str').text("Please wait...!")
+               var formFile = new FormData();
+               formFile.append("action", "UploadVMKImagePath");
+               formFile.append("image", fileObj);
+               $("#output_str").css("color", "green");
+               $('#output_str').text("Posting data, please wait...")
+               $.ajax({
+                   url: "/npr_api",
+                   type: "POST",
+                   dataType: "json",
+                   cache: false,
+                   processData: false,
+                   contentType: false,
+                   data: formFile,
+                   success: function (data) {
+
+                       $("#input_img").attr("src", data['input_img'])
+                       $("#npr_img").attr("src", data['npr_img'])
+                       //$("#sketched_color").attr("src", data['sketched_color'])
+                       //$("#sketched_gray").attr("src", data['sketched_gray'])
+                       //$("#enhance").attr("src", data['enhance'])
+                       //$("#edge_preserve").attr("src", data['edge_preserve'])
+                       $("#output_str").css("color", "green");
+                       $('#output_str').text(data['input_img'])
+                   },
+                   error: function (request, errormsg) {
+                       $("#output_str").css("color", "red");
+                       $("#output_str").text('error!');
+                   }
+                   {#var myDate=new Date();#}
+                   {#  data['hours']=myDate.getHours();#}
+                   {#  data['minutes']=myDate.getMinutes();#}
+                   {#  data['second']=myDate.getSeconds();#}
+                   {#  console.log(data['hours'])#}
+                   {# $.ajax({#}
+                   {#    url:"/npr",#}
+                   {#    type:"POST",#}
+                   {#     cache: true,#}
+                   {#    data:formFile,#}
+                   {#    processData:false,#}
+                   {#    contentType:false,#}
+                   {#    success: function (data) {#}
+                   {#        document.getElementById('rawimage').innerHTML=data;#}
+                   {#        document.getElementById('stylizedimage').innerHTML=data;#}
+                   {#        $("#input_img").attr("src",data['input_img'])#}
+                   {#        $("#npr_img").attr("src",data['npr_img'])#}
+                   {#    }#}
+                   {# })#}
+                })
+       }
     </script>
 <script type="text/javascript">
 <!--zoom in show-->

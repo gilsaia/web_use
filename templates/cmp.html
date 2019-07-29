@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block script %}
+{% endblock %}
+{% block main %}
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <button type="button" class="layui-btn" id="upload">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+    layui.use('upload', function(){
+      var upload = layui.upload;
+
+      //执行实例
+      var uploadInst = upload.render({
+        elem: '#test1' //绑定元素
+        ,url: '/upload/' //上传接口
+        ,done: function(res){
+          //上传完毕回调
+        }
+        ,error: function(){
+          //请求异常回调
+        }
+      });
+    });
+</script>
+{% endblock %}

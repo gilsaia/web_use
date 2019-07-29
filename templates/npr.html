@@ -5,18 +5,20 @@
              $("#npr").addClass("active");
          });
     </script>
+
 {% endblock %}
 {% block main %}
     <div class="container">
     <h1 style="text-align: center; font-family: Tangerine">Non-Photorealistic Rendering</h1>
-    <form class="npr-form form-inline" id="form1" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <input id="file" type="file" id="exampleInputFile" class="form-control" name="file">
+        <br>
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <button type="button" class="layui-btn" id="upload">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
         </div>
-      <button type="button" class="btn btn-default" id="upload_btn" onclick="uploadimage()">Upload</button>
-        <p id="output_str">Choose an image file then prees "Upload".</p>
-    </form>
+    </div>
+        <br>
         <div id="output" class="img-block">
             <div class="row">
                 <div class="col-md-6 text-center">
@@ -38,6 +40,27 @@
     </div>
 {% endblock %}
 {% block endscript %}
+    <script>
+        layui.use('upload', function(){
+          var upload = layui.upload;
+
+          //执行实例
+          var uploadInst = upload.render({
+            elem: '#upload' //绑定元素
+            ,url: '/npr_api' //上传接口
+              ,accept:'images'
+              ,size:4096
+            ,done: function(res){
+              //上传完毕回调
+                   $("#input_img").attr("src", res['input_img']);
+                   $("#npr_img").attr("src", res['npr_img']);
+            }
+            ,error: function(){
+              //请求异常回调
+            }
+          });
+        });
+    </script>
     <script type="text/javascript">
     function isimg(fn) {
         fn=fn.toLowerCase();
@@ -98,7 +121,7 @@
                cache: false,
                processData: false,
                contentType: false,
-               data: formFile,
+               file: formFile,
                success: function (data) {
 
                    $("#input_img").attr("src", data['input_img'])

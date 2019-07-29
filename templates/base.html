@@ -15,20 +15,39 @@
         <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ url_for('static',filename='css/formmain.css')}}">
         <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}">
+        <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}"></script>
         {% block script %}{% endblock %}
 	</head>
 	<body>
 		<div class="page-wrap">
 
 			<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li><a href="{{ url_for('hello_world') }}" id="home"><span class="icon fa-home"></span></a></li>
-						<li><a href="{{ url_for('gallery') }}" id="gallery"><span class="icon fa-camera-retro"></span></a></li>
-						<li><a href="{{ url_for('generic') }}" id="generic"><span class="icon fa-file-text-o"></span></a></li>
-                        <li><a href="{{ url_for('npr') }}" id="npr"><span class="icon fa-eyedropper"></span></a> </li>
-					</ul>
-				</nav>
+        <ul class="layui-nav layui-nav-tree" lay-filter="nav" style="width: 60px;">
+        <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+          <li class="layui-nav-item"><a href="{{ url_for('hello_world') }}"><span class="icon fa-home"></span></a></li>
+          <li class="layui-nav-item"><a href="{{ url_for('gallery') }}"><span class="icon fa-camera-retro"></span></a></li>
+          <li class="layui-nav-item"><a href="{{ url_for('generic') }}"><span class="icon fa-file-text-o"></span></a></li>
+          <li class="layui-nav-item"><a href="{{ url_for('npr') }}"><span class="icon fa-eyedropper"></span></a></li>
+          <li class="layui-nav-item"><a href="{{ url_for('cmp') }}"><span class="icon fa-copy"></span></a></li>
+        </ul>
+        <script>
+        //注意：导航 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function(){
+          var element = layui.element;
+
+          //…
+        });
+        </script>
+{#				<nav id="nav">#}
+{#					<ul>#}
+{#						<li><a href="{{ url_for('hello_world') }}" id="home"><span class="icon fa-home"></span></a></li>#}
+{#						<li><a href="{{ url_for('gallery') }}" id="gallery"><span class="icon fa-camera-retro"></span></a></li>#}
+{#						<li><a href="{{ url_for('generic') }}" id="generic"><span class="icon fa-file-text-o"></span></a></li>#}
+{#                        <li><a href="{{ url_for('npr') }}" id="npr"><span class="icon fa-eyedropper"></span></a> </li>#}
+{#                        <li><a href="{{ url_for('cmp') }}" id="cmp"><span class="icon fa-copy"></span></a></li>#}
+{#					</ul>#}
+{#				</nav>#}
 
 			<!-- Main -->
 				<section id="main">

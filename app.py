@@ -34,7 +34,7 @@ def npr():
 
 @app.route('/npr_api', methods=['POST'], strict_slashes=False)
 def npr_api():
-    f = request.files['image']
+    f = request.files['file']
     rsz_fn = osp.join(upload_dir, f.filename)
     npr_imfn = osp.join(upload_dir, f.filename)
     f.save(osp.join(upload_dir, f.filename))
@@ -47,6 +47,9 @@ def npr_api():
         'input_img': rsz_fn
     })
 
+@app.route('/cmp')
+def cmp():
+    return  render_template("cmp.html")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

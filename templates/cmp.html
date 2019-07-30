@@ -4,28 +4,59 @@
 {% block main %}
     <div class="layui-container">
         <div class="layui-row">
-            <div class="layui-col-md5">
-                <button type="button" class="layui-btn" id="upload">
-                    <i class="layui-icon">&#xe67c;</i>上传图片
-                </button>
+            <div class="layui-card">
+                <div class="layui-card-header">上传文件</div>
+                <div class="layui-card-body">
+                    <button type="button" class="layui-btn" id="upload">
+                        <i class="layui-icon">&#xe67c;</i>上传文件
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-card">
+                <div class="layui-card-header">比较结果</div>
+                <div class="layui-card-body">
+                    <table id="cmplist" lay-filter="cmplist"></table>
+                </div>
             </div>
         </div>
     </div>
     <script>
-    layui.use('upload', function(){
-      var upload = layui.upload;
-
-      //执行实例
-      var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
-        ,url: '/upload/' //上传接口
-        ,done: function(res){
-          //上传完毕回调
-        }
-        ,error: function(){
-          //请求异常回调
-        }
-      });
-    });
-</script>
+        layui.use(['upload', 'element', 'table'], function () {
+            var upload = layui.upload;
+            var element = layui.element;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upload' //绑定元素
+                , url: '/cmp_api' //上传接口
+                , done: function (res) {
+                    //上传完毕回调
+                    table.reload('cmplist',{
+                        url:'/cmp_api'
+                    })
+                }
+                , error: function () {
+                    //请求异常回调
+                }
+            });
+            var table = layui.table;
+            //执行渲染
+            table.render({
+                elem: '#cmplist' //指定原始表格元素选择器（推荐id选择器）
+                , height: 315 //容器高度
+                , cols: [[ //标题栏
+                    {field: 'id', title: '实验项', width: 100}
+                    , {field: 'par1', title: '参数1'}
+                    , {field: 'par1cmp', title: '参数1对比'}
+                    , {field: 'par2', title: '参数2'}
+                    , {field: 'par2cmp', title: '参数2对比'}
+                ]]
+                , page: true
+                , url: '/cmp_api_sample'
+                //,…… //更多参数参考右侧目录：基本参数选项
+            })
+            ;
+        });
+    </script>
 {% endblock %}
